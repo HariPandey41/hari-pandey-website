@@ -57,31 +57,18 @@ body {
     color: #77aaff;
 }
 
-/* Header */
-#header {
-    background: #444;
-    color: #fff;
-    padding: 100px 0;
-    text-align: center;
-}
-
-#header h1 {
-    font-size: 48px;
-    margin: 0;
-}
-
-#header p {
-    font-size: 24px;
-    margin: 10px 0 0;
-}
-
 /* Sections */
 .section {
+    display: none; /* Hide all sections by default */
     padding: 60px 0;
     background: #fff;
     margin: 20px 0;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section.active {
+    display: block; /* Show the active section */
 }
 
 .section h2 {
@@ -91,16 +78,51 @@ body {
     margin-bottom: 20px;
 }
 
-/* Lists */
-ul {
-    list-style-type: square;
-    padding-left: 20px;
+/* Form Styles */
+#message-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #77aaff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #5599ff;
+}
+
+#form-status {
+    margin-top: 10px;
+    color: green;
 }
 
 /* Footer */
 footer {
     background: #333;
-    color: #77aaff; /* Changed text color to blue */
+    color: #77aaff; /* Blue text color */
     text-align: center;
     padding: 20px 0;
     margin-top: 40px;
@@ -119,14 +141,6 @@ footer p {
 
     #navbar ul {
         margin-top: 10px;
-    }
-
-    #header h1 {
-        font-size: 36px;
-    }
-
-    #header p {
-        font-size: 18px;
     }
 
     .section {
