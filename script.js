@@ -1,31 +1,40 @@
-// Smooth scrolling and section visibility
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault(); // Prevent default anchor behavior
-        const targetId = this.getAttribute("href"); // Get the target section ID
-        const targetSection = document.querySelector(targetId); // Find the target section
-
-        // Hide all sections
-        document.querySelectorAll(".section").forEach((section) => {
-            section.classList.remove("active");
-        });
-
-        // Show the target section
-        if (targetSection) {
-            targetSection.classList.add("active");
-            targetSection.scrollIntoView({
-                behavior: "smooth", // Smooth scroll
-                block: "start", // Align to the top of the section
-            });
-        }
+// Function to show the selected section and hide others
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
     });
+
+    // Show the selected section
+    document.getElementById(sectionId).classList.add('active');
+}
+
+// Show the About section by default when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    showSection('about');
 });
 
-// Show the first section by default on page load
-window.addEventListener("load", () => {
-    document.querySelector("#about").classList.add("active");
-});
+// EmailJS Integration
+(function () {
+    emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your EmailJS user ID
+})();
 
-// Update footer year dynamically
-const year = new Date().getFullYear();
-document.getElementById("year").textContent = year;
+document.getElementById('message-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value,
+    };
+
+    // Send email using EmailJS
+    emailjs.send("service_n0u4x8b", "template_hbi5ioe", formData)
+        .then(() => {
+            document.getElementById('form-status').textContent = "Message sent successfully!";
+            document.getElementById('message-form').reset(); // Clear the form
+        })
+        .catch(() => {
+            document.getElementById('form-status').textContent = "Failed to send message. Please try again.";
+        });
+});
