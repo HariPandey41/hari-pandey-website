@@ -1,28 +1,18 @@
-document.getElementById('message-form').addEventListener('submit', function (event) {
-    event.preventDefault();
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
 
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value,
-    };
+    // Show the selected section
+    document.getElementById(sectionId).classList.add('active');
+}
 
-    fetch('http://localhost:3000/send-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            document.getElementById('form-status').textContent = data.message;
-            if (data.success) {
-                document.getElementById('message-form').reset(); // Clear the form
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            document.getElementById('form-status').textContent = 'Failed to send message. Please try again.';
-        });
+// Optional: Add event listeners for navigation links
+document.querySelectorAll('#navbar a').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+        const sectionId = this.getAttribute('href').substring(1);
+        showSection(sectionId);
+    });
 });
