@@ -240,6 +240,11 @@ h1,h2,h3{
 .log-body h3{ font-size: 1.15rem; margin-bottom: 2px; }
 .log-org{ color: var(--amber); font-size: .92rem; margin: 0 0 8px; font-family: var(--font-mono); }
 .log-desc{ color: var(--text-dim); margin:0; max-width: 60ch; }
+.log-current{
+  font-family: var(--font-mono); font-size: .62rem; font-weight:600; text-transform:uppercase;
+  color: var(--teal); border: 1px solid var(--teal-dim); border-radius: 999px;
+  padding: 2px 8px; margin-left: 10px; letter-spacing: .05em; vertical-align: middle;
+}
 
 /* ===========================================================
    Education
@@ -252,7 +257,26 @@ h1,h2,h3{
 .edu-card:hover{ border-color: var(--teal); transform: translateY(-4px); }
 .edu-year{ font-family: var(--font-mono); font-size: .78rem; color: var(--teal); }
 .edu-card h3{ font-size: 1.05rem; margin: 8px 0 6px; }
-.edu-card p{ color: var(--text-dim); margin:0; font-size: .92rem; }
+.edu-card p{ color: var(--text-dim); margin:0 0 6px; font-size: .92rem; }
+.edu-note{ color: var(--text-faint); font-size: .82rem; margin: 0 !important; }
+
+/* ===========================================================
+   Beyond the job (volunteer / awards)
+   =========================================================== */
+.beyond-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.beyond-card{
+  background: var(--bg-panel); border:1px solid var(--line); border-radius: 12px;
+  padding: 26px; transition: border-color .25s ease, transform .25s ease;
+}
+.beyond-card:hover{ border-color: var(--amber); transform: translateY(-4px); }
+.beyond-tag{
+  font-family: var(--font-mono); font-size: .68rem; color: var(--amber);
+  border: 1px solid #E8B35533; border-radius: 999px; padding: 2px 8px;
+  text-transform: uppercase; letter-spacing:.05em;
+}
+.beyond-card h3{ font-size: 1.1rem; margin: 12px 0 4px; }
+.beyond-meta{ font-family: var(--font-mono); font-size: .78rem; color: var(--text-dim); margin: 0 0 10px; }
+.beyond-card p:last-child{ color: var(--text-dim); margin:0; font-size: .92rem; }
 
 /* ===========================================================
    Projects
@@ -313,7 +337,7 @@ footer p{ margin:0; color: var(--text-faint); font-family: var(--font-mono); fon
    =========================================================== */
 @media (max-width: 860px){
   .about-grid, .contact-grid{ grid-template-columns: 1fr; }
-  .edu-grid, .project-grid{ grid-template-columns: 1fr; }
+  .edu-grid, .project-grid, .beyond-grid{ grid-template-columns: 1fr; }
   .log-entry{ grid-template-columns: 1fr; gap: 6px; }
   .status-pill .status-text{ display:none; }
 }
