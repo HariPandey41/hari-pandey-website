@@ -1,92 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hari Pandey - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hari Pandey — IT Systems &amp; Cybersecurity</title>
+<meta name="description" content="Hari Pandey — IT infrastructure, cybersecurity and systems engineering across Nepal's microfinance sector.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav id="navbar">
-        <div class="container">
-            <h1>Hari Pandey</h1>
-            <ul>
-                <li><a href="#about" onclick="showSection('about')">About</a></li>
-                <li><a href="#education" onclick="showSection('education')">Education</a></li>
-                <li><a href="#experience" onclick="showSection('experience')">Experience</a></li>
-                <li><a href="#projects" onclick="showSection('projects')">Projects</a></li>
-                <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Sections -->
-    <div id="content">
-        <!-- About Section -->
-        <section id="about" class="section active">
-            <div class="container">
-                <h2>About Me</h2>
-                <p>
-                    Hello! I'm Hari Pandey, a computer engineer with experience in IT management, software development, and digital innovation. I have a strong background in SQL, system administration, and web development. I'm passionate about solving problems and creating efficient systems.
-                </p>
-            </div>
-        </section>
+<div class="grain"></div>
 
-        <!-- Education Section -->
-        <section id="education" class="section">
-            <div class="container">
-                <h2>Education</h2>
-                <ul>
-                    <li><strong>Bachelor's in Computer Engineering</strong> - Janakpur Engineering College, Kathmandu (2012-2018)</li>
-                    <li><strong>Higher School</strong> - Tilottama Higher Secondary School, Butwal (2009-2011)</li>
-                    <li><strong>School</strong> - Motherland English School, Butwal (Graduated 2009)</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="section">
-            <div class="container">
-                <h2>Work Experience</h2>
-                <ul>
-                    <li><strong>Senior Officer</strong> - Nic Asia Laghubitta Bittiya Sanstha Limited (Nov 2022 - Present)</li>
-                    <li><strong>IT Officer Department Head</strong> - Aarambha Chautari Laghubitta Bittiya Sanstha Limited (Jul 2021 - Nov 2022)</li>
-                    <li><strong>IT Officer</strong> - Nic Asia Laghubitta Bittiya Sanstha Limited (Dec 2019 - Jul 2021)</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section">
-            <div class="container">
-                <h2>Projects</h2>
-                <ul>
-                    <li><strong>Web-Based Hospital Management System</strong> - Developed using C#, MVC, and MySQL.</li>
-                    <li><strong>Online Music Management System</strong> - Developed using C# and MySQL.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="container">
-                <h2>Contact Me</h2>
-                <p>Email: <a href="mailto:pandeyhari41@gmail.com">pandeyhari41@gmail.com</a></p>
-                <p>Phone: <a href="tel:977-986-3197740">977-986-3197740</a></p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/in/hari-pandey/" target="_blank">My LinkedIn Profile</a></p>
-            </div>
-        </section>
+<!-- Nav -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">HP</span>
+      <span class="brand-name">Hari Pandey</span>
+    </a>
+    <div class="status-pill" id="statusPill">
+      <span class="dot"></span>
+      <span class="status-text">systems nominal</span>
+      <span class="status-clock" id="statusClock">--:--:--</span>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navLinks">
+      <li><a href="#about"><span class="idx">01</span>About</a></li>
+      <li><a href="#experience"><span class="idx">02</span>Log</a></li>
+      <li><a href="#education"><span class="idx">03</span>Education</a></li>
+      <li><a href="#projects"><span class="idx">04</span>Builds</a></li>
+      <li><a href="#contact"><span class="idx">05</span>Connect</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Hari Pandey. All rights reserved.</p>
+<!-- Hero -->
+<header id="top" class="hero">
+  <canvas id="netCanvas"></canvas>
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="blink">●</span> Head Office &mdash; IT Department</p>
+    <h1 class="hero-title">
+      Hari Pandey
+    </h1>
+    <p class="hero-role">Systems that keep a lending network honest.</p>
+    <p class="hero-sub">
+      IT infrastructure, cybersecurity and regulatory compliance for Nepal's
+      microfinance sector — where every branch node has to stay online, and every
+      ledger entry has to stay clean.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-ghost">View the log <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">
+    <span>scroll</span>
+    <div class="scroll-line"><i></i></div>
+  </div>
+</header>
+
+<main id="content">
+
+  <!-- About -->
+  <section id="about" class="section reveal">
+    <div class="section-inner">
+      <p class="section-label"><span class="idx">01</span> About</p>
+      <div class="about-grid">
+        <div class="about-copy">
+          <h2>Uptime is a trust problem, not just a technical one.</h2>
+          <p>
+            I'm a computer engineer working in IT management, systems administration
+            and digital infrastructure across Nepal's microfinance institutions. My work
+            sits at the intersection of network reliability, cybersecurity, and regulatory
+            compliance — keeping branch systems online, loan data accurate, and
+            institutions aligned with Nepal Rastra Bank's IS Audit requirements.
+          </p>
+          <p>
+            I care about building systems that are boring in the best way: predictable,
+            documented, and hard to break. SQL underneath, policy on top.
+          </p>
         </div>
-    </footer>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-num" data-count="6">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">years in IT &amp; systems</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="3">0</span>
+            <span class="stat-label">institutions served</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="100">0</span><span class="stat-suffix">%</span>
+            <span class="stat-label">focus on compliance-first design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+  <!-- Experience -->
+  <section id="experience" class="section reveal">
+    <div class="section-inner">
+      <p class="section-label"><span class="idx">02</span> Change Log</p>
+      <h2 class="section-title">Work history</h2>
+      <ol class="log">
+        <li class="log-entry reveal">
+          <div class="log-time">
+            <span class="log-range">2022 — present</span>
+          </div>
+          <div class="log-body">
+            <h3>Senior Officer</h3>
+            <p class="log-org">Nic Asia Laghubitta Bittiya Sanstha Limited</p>
+            <p class="log-desc">Leading IT operations across the branch network — infrastructure, compliance documentation, and cybersecurity posture.</p>
+          </div>
+        </li>
+        <li class="log-entry reveal">
+          <div class="log-time">
+            <span class="log-range">2021 — 2022</span>
+          </div>
+          <div class="log-body">
+            <h3>IT Officer &amp; Department Head</h3>
+            <p class="log-org">Aarambha Chautari Laghubitta Bittiya Sanstha Limited</p>
+            <p class="log-desc">Built and led the IT function from the ground up, establishing early systems and process foundations.</p>
+          </div>
+        </li>
+        <li class="log-entry reveal">
+          <div class="log-time">
+            <span class="log-range">2019 — 2021</span>
+          </div>
+          <div class="log-body">
+            <h3>IT Officer</h3>
+            <p class="log-org">Nic Asia Laghubitta Bittiya Sanstha Limited</p>
+            <p class="log-desc">Handled day-to-day systems administration, support, and infrastructure maintenance.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="section reveal">
+    <div class="section-inner">
+      <p class="section-label"><span class="idx">03</span> Education</p>
+      <h2 class="section-title">Foundation</h2>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <span class="edu-year">2012 – 2018</span>
+          <h3>B.E. Computer Engineering</h3>
+          <p>Janakpur Engineering College, Kathmandu</p>
+        </div>
+        <div class="edu-card reveal">
+          <span class="edu-year">2009 – 2011</span>
+          <h3>Higher Secondary</h3>
+          <p>Tilottama Higher Secondary School, Butwal</p>
+        </div>
+        <div class="edu-card reveal">
+          <span class="edu-year">Graduated 2009</span>
+          <h3>School</h3>
+          <p>Motherland English School, Butwal</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section reveal">
+    <div class="section-inner">
+      <p class="section-label"><span class="idx">04</span> Builds</p>
+      <h2 class="section-title">Systems shipped</h2>
+      <div class="project-grid">
+        <article class="project-card reveal">
+          <div class="project-head">
+            <span class="project-tag">C# · MVC · MySQL</span>
+            <span class="project-status">deployed</span>
+          </div>
+          <h3>Web-Based Hospital Management System</h3>
+          <p>End-to-end system for managing hospital records, appointments, and administrative workflow.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-head">
+            <span class="project-tag">C# · MySQL</span>
+            <span class="project-status">deployed</span>
+          </div>
+          <h3>Online Music Management System</h3>
+          <p>A catalog and management platform for organizing and serving music content.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section reveal">
+    <div class="section-inner">
+      <p class="section-label"><span class="idx">05</span> Connect</p>
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <h2>Let's talk systems.</h2>
+          <p>Open to conversations on IT infrastructure, cybersecurity, and compliance work in financial systems.</p>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+            <span class="terminal-title">contact.sh</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$</span> whoami</p>
+            <p class="out">hari_pandey — IT &amp; Cybersecurity</p>
+            <p><span class="prompt">$</span> cat email.txt</p>
+            <p class="out"><a href="mailto:pandeyhari41@gmail.com">pandeyhari41@gmail.com</a></p>
+            <p><span class="prompt">$</span> cat phone.txt</p>
+            <p class="out"><a href="tel:+9779863197740">+977 986 319 7740</a></p>
+            <p><span class="prompt">$</span> open linkedin</p>
+            <p class="out"><a href="https://www.linkedin.com/in/hari-pandey/" target="_blank" rel="noopener">linkedin.com/in/hari-pandey</a></p>
+            <p class="cursor-line"><span class="prompt">$</span><span class="cursor">▌</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p>&copy; <span id="year"></span> Hari Pandey. Built with intent, not a template.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
