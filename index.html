@@ -1,276 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hari Pandey — IT Systems &amp; Cybersecurity</title>
-<meta name="description" content="Hari Pandey — IT infrastructure, cybersecurity and systems engineering across Nepal's microfinance sector.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111b">
+  <meta name="description" content="Hari Pandey — IT systems, cybersecurity, infrastructure and compliance for Nepal's microfinance sector.">
+  <title>Hari Pandey — Signal / Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="site-noise" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
-<div class="grain"></div>
-
-<!-- Nav -->
-<nav id="navbar">
-  <div class="nav-inner">
-    <a href="#top" class="brand">
-      <span class="brand-mark">HP</span>
-      <span class="brand-name">Hari Pandey</span>
-    </a>
-    <div class="status-pill" id="statusPill">
-      <span class="dot"></span>
-      <span class="status-text">systems nominal</span>
-      <span class="status-clock" id="statusClock">--:--:--</span>
+  <nav class="navbar" id="navbar" aria-label="Primary navigation">
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Hari Pandey home">
+        <span class="brand-glyph">HP</span>
+        <span class="brand-copy"><strong>Hari Pandey</strong><small>signal / systems</small></span>
+      </a>
+      <div class="nav-status"><span class="pulse-dot"></span><span>systems nominal</span><time id="statusClock">--:--:-- NPT</time></div>
+      <button class="icon-button theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" aria-pressed="false"><span class="theme-icon">◐</span></button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a class="nav-link active" href="#about" data-section="about"><span>01</span>About</a></li>
+        <li><a class="nav-link" href="#experience" data-section="experience"><span>02</span>Experience</a></li>
+        <li><a class="nav-link" href="#capabilities" data-section="capabilities"><span>03</span>Capabilities</a></li>
+        <li><a class="nav-link" href="#projects" data-section="projects"><span>04</span>Builds</a></li>
+        <li><a class="nav-link" href="#contact" data-section="contact"><span>05</span>Connect</a></li>
+      </ul>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <ul id="navLinks">
-      <li><a href="#about"><span class="idx">01</span>About</a></li>
-      <li><a href="#experience"><span class="idx">02</span>Log</a></li>
-      <li><a href="#education"><span class="idx">03</span>Education</a></li>
-      <li><a href="#projects"><span class="idx">04</span>Builds</a></li>
-      <li><a href="#beyond"><span class="idx">06</span>Beyond</a></li>
-      <li><a href="#contact"><span class="idx">05</span>Connect</a></li>
-    </ul>
-  </div>
-</nav>
+  </nav>
 
-<!-- Hero -->
-<header id="top" class="hero">
-  <canvas id="netCanvas"></canvas>
-  <div class="hero-inner">
-    <p class="eyebrow"><span class="blink">●</span> Head Office &mdash; IT Department</p>
-    <h1 class="hero-title">
-      Hari Pandey
-    </h1>
-    <p class="hero-role">Systems that keep a lending network honest.</p>
-    <p class="hero-sub">
-      IT infrastructure, cybersecurity and regulatory compliance for Nepal's
-      microfinance sector — where every branch node has to stay online, and every
-      ledger entry has to stay clean.
-    </p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary">Get in touch</a>
-      <a href="#experience" class="btn btn-ghost">View the log <span aria-hidden="true">↓</span></a>
-    </div>
-  </div>
-  <div class="scroll-cue" aria-hidden="true">
-    <span>scroll</span>
-    <div class="scroll-line"><i></i></div>
-  </div>
-</header>
-
-<main id="content">
-
-  <!-- About -->
-  <section id="about" class="section reveal">
-    <div class="section-inner">
-      <p class="section-label"><span class="idx">01</span> About</p>
-      <div class="about-grid">
-        <div class="about-copy">
-          <h2>Uptime is a trust problem, not just a technical one.</h2>
-          <p>
-            I'm a computer engineer working in IT management, systems administration
-            and digital infrastructure across Nepal's microfinance institutions. My work
-            sits at the intersection of network reliability, cybersecurity, and regulatory
-            compliance — keeping branch systems online, loan data accurate, and
-            institutions aligned with Nepal Rastra Bank's IS Audit requirements.
-          </p>
-          <p>
-            I care about building systems that are boring in the best way: predictable,
-            documented, and hard to break. SQL underneath, policy on top.
-          </p>
+  <main id="top">
+    <header class="hero section-shell">
+      <canvas id="netCanvas" aria-hidden="true"></canvas>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span>IT systems · cybersecurity · Nepal</div>
+          <h1>Build calm systems for <em>high-stakes work.</em></h1>
+          <p class="hero-lede">I keep the infrastructure behind financial services reliable, secure and ready for the next audit, branch or business day.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact">Start a conversation <span>↗</span></a>
+            <a class="button button-secondary" href="#experience">Explore the work <span>↓</span></a>
+          </div>
+          <div class="hero-meta"><span><i class="meta-dot"></i>Based in Butwal, Nepal</span><span>Available for meaningful systems work</span></div>
         </div>
-        <div class="about-stats">
-          <div class="stat">
-            <span class="stat-num" data-count="6">0</span><span class="stat-suffix">+</span>
-            <span class="stat-label">years in IT &amp; systems, since Dec 2019</span>
+        <aside class="signal-card" aria-label="Professional profile summary">
+          <div class="signal-orbit orbit-one"></div><div class="signal-orbit orbit-two"></div>
+          <div class="signal-card-top"><span class="mono-label">/ current profile</span><span class="live-badge"><i></i> live</span></div>
+          <div class="profile-mark" aria-hidden="true"><span>HP</span><i></i><b></b></div>
+          <div class="profile-name"><strong>Hari Pandey</strong><span>IT Officer &amp; Department Head</span></div>
+          <div class="signal-list">
+            <div><span>Focus</span><strong>Infrastructure + security</strong></div>
+            <div><span>Sector</span><strong>Microfinance / fintech</strong></div>
+            <div><span>Mode</span><strong class="accent-text">Compliance-first</strong></div>
           </div>
-          <div class="stat">
-            <span class="stat-num" data-count="3">0</span>
-            <span class="stat-label">institutions, 4 roles — 1 merger led through</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="100">0</span><span class="stat-suffix">%</span>
-            <span class="stat-label">focus on compliance-first design</span>
-          </div>
+          <div class="signal-footer"><span>Last sync</span><time id="syncTime">today · 16:46 NPT</time></div>
+        </aside>
+      </div>
+      <a class="scroll-hint" href="#about"><span>scroll to inspect</span><i></i></a>
+    </header>
+
+    <section class="metrics section-shell" aria-label="Career snapshot">
+      <div class="metric"><strong class="count" data-count="6">0</strong><span class="metric-suffix">+</span><small>years in IT &amp; systems</small></div>
+      <div class="metric"><strong class="count" data-count="4">0</strong><small>roles across 3 institutions</small></div>
+      <div class="metric"><strong class="count" data-count="1">0</strong><small>merger led through</small></div>
+      <div class="metric"><strong class="count" data-count="100">0</strong><span class="metric-suffix">%</span><small>compliance-first focus</small></div>
+    </section>
+
+    <section class="content-section" id="about">
+      <div class="section-shell">
+        <div class="section-heading reveal"><span class="section-index">01</span><div><p class="kicker">The operating thesis</p><h2>Uptime is a trust problem, not just a technical one.</h2></div></div>
+        <div class="about-layout">
+          <div class="about-copy reveal"><p class="lead-paragraph">I’m a computer engineer working across IT management, systems administration and digital infrastructure for Nepal’s microfinance institutions.</p><p>My work sits where network reliability, cybersecurity and regulatory compliance meet: keeping branch systems online, loan data accurate, and institutions aligned with Nepal Rastra Bank’s IS Audit requirements.</p><p>I like systems that are boring in the best way — predictable, documented and hard to break. SQL underneath, policy on top.</p></div>
+          <div class="principles reveal"><article><span class="principle-number">01</span><h3>Make it observable</h3><p>Good operations begin with a system that tells you what is happening before a user has to.</p></article><article><span class="principle-number">02</span><h3>Reduce the unknown</h3><p>Clear runbooks, clean access and repeatable controls turn risk into something teams can manage.</p></article><article><span class="principle-number">03</span><h3>Design for Monday</h3><p>The best infrastructure survives the busy branch, the audit request and the unexpected handover.</p></article></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Experience -->
-  <section id="experience" class="section reveal">
-    <div class="section-inner">
-      <p class="section-label"><span class="idx">02</span> Change Log</p>
-      <h2 class="section-title">Work history</h2>
-      <ol class="log">
-        <li class="log-entry reveal">
-          <div class="log-time">
-            <span class="log-range">Jun 2024 — present</span>
-          </div>
-          <div class="log-body">
-            <h3>IT Officer &amp; Department Head <span class="log-current">current</span></h3>
-            <p class="log-org">Mero Microfinance Laghubitta Bittiya Sanstha Limited</p>
-            <p class="log-desc">Leading the IT department end-to-end and sitting on the management team — infrastructure, cybersecurity, and NRB compliance across the branch network.</p>
-          </div>
-        </li>
-        <li class="log-entry reveal">
-          <div class="log-time">
-            <span class="log-range">Nov 2022 — Jun 2024</span>
-          </div>
-          <div class="log-body">
-            <h3>Senior Officer (IT In-charge)</h3>
-            <p class="log-org">Nic Asia Laghubitta Bittiya Sanstha Limited · Banepa</p>
-            <p class="log-desc">Departmental in-charge and head of digital innovation.</p>
-          </div>
-        </li>
-        <li class="log-entry reveal">
-          <div class="log-time">
-            <span class="log-range">Jul 2021 — Nov 2022</span>
-          </div>
-          <div class="log-body">
-            <h3>IT Officer &amp; Department Head</h3>
-            <p class="log-org">Aarambha Chautari Laghubitta Bittiya Sanstha Limited · Banepa</p>
-            <p class="log-desc">Monitored assigned work, applied analytical problem-solving as part of the management team, and led IT through a merger process.</p>
-          </div>
-        </li>
-        <li class="log-entry reveal">
-          <div class="log-time">
-            <span class="log-range">Dec 2019 — Jul 2021</span>
-          </div>
-          <div class="log-body">
-            <h3>IT Officer</h3>
-            <p class="log-org">Nic Asia Laghubitta Bittiya Sanstha Limited · Banepa</p>
-            <p class="log-desc">SQL report extraction and database administration, FortiGate firewall configuration and monitoring, SharePoint management, network monitoring with Observium, CBS support and UAT for new development, and system administration of electronic devices.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Volunteer & Awards -->
-  <section id="beyond" class="section reveal">
-    <div class="section-inner">
-      <p class="section-label"><span class="idx">06</span> Beyond the Job</p>
-      <div class="beyond-grid">
-        <div class="beyond-card reveal">
-          <span class="beyond-tag">Volunteer</span>
-          <h3>Teacher — Teach For Nepal</h3>
-          <p class="beyond-meta">Aug 2016 – Apr 2018 · Kathmandu</p>
-          <p>Volunteer teacher at Shree Mahakali Secondary School, Melamchi-11, Sindhupalchok.</p>
-        </div>
-        <div class="beyond-card reveal">
-          <span class="beyond-tag">Award</span>
-          <h3>B.E. Scholarship</h3>
-          <p class="beyond-meta">2012 · Janakpur Engineering College</p>
-          <p>Partial scholarship for the B.E. program, awarded through a national-level competitive exam.</p>
+    <section class="content-section section-tinted" id="experience">
+      <div class="section-shell">
+        <div class="section-heading reveal"><span class="section-index">02</span><div><p class="kicker">Change log</p><h2>Work history, with the context left in.</h2></div></div>
+        <div class="timeline">
+          <article class="timeline-item current reveal"><div class="timeline-date">Jun 2024 — present</div><div class="timeline-marker"></div><div class="timeline-content"><div class="role-top"><span class="current-label">Current</span><span>Management team</span></div><h3>IT Officer &amp; Department Head</h3><p class="company">Mero Microfinance Laghubitta Bittiya Sanstha Limited</p><p>Leading the IT department end-to-end: infrastructure, cybersecurity and NRB compliance across the branch network.</p><div class="tag-row"><span>IT leadership</span><span>Cybersecurity</span><span>NRB compliance</span></div></div></article>
+          <article class="timeline-item reveal"><div class="timeline-date">Nov 2022 — Jun 2024</div><div class="timeline-marker"></div><div class="timeline-content"><h3>Senior Officer (IT In-charge)</h3><p class="company">NIC ASIA Laghubitta Bittiya Sanstha Limited · Banepa</p><p>Departmental in-charge and head of digital innovation, translating operational needs into dependable systems.</p></div></article>
+          <article class="timeline-item reveal"><div class="timeline-date">Jul 2021 — Nov 2022</div><div class="timeline-marker"></div><div class="timeline-content"><h3>IT Officer &amp; Department Head</h3><p class="company">Aarambha Chautari Laghubitta Bittiya Sanstha Limited · Banepa</p><p>Led IT through a merger process while coordinating work, problem-solving and management reporting.</p></div></article>
+          <article class="timeline-item reveal"><div class="timeline-date">Dec 2019 — Jul 2021</div><div class="timeline-marker"></div><div class="timeline-content"><h3>IT Officer</h3><p class="company">NIC ASIA Laghubitta Bittiya Sanstha Limited · Banepa</p><p>SQL reporting and database administration, FortiGate configuration, SharePoint, Observium, CBS support and UAT.</p></div></article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Education -->
-  <section id="education" class="section reveal">
-    <div class="section-inner">
-      <p class="section-label"><span class="idx">03</span> Education</p>
-      <h2 class="section-title">Foundation</h2>
-      <div class="edu-grid">
-        <div class="edu-card reveal">
-          <span class="edu-year">2012 – 2016</span>
-          <h3>B.E. Computer Engineering</h3>
-          <p>Janakpur Engineering College, Kathmandu</p>
-          <p class="edu-note">Electives: Data Mining, Remote Sensing, Agile Software Development. Graduated First Division.</p>
-        </div>
-        <div class="edu-card reveal">
-          <span class="edu-year">2009 – 2011</span>
-          <h3>Higher Secondary, Physics</h3>
-          <p>Tilottama Higher Secondary School, Butwal</p>
-          <p class="edu-note">Graduated First Division.</p>
-        </div>
-        <div class="edu-card reveal">
-          <span class="edu-year">Graduated 2009</span>
-          <h3>School</h3>
-          <p>Motherland English School, Butwal</p>
-          <p class="edu-note">Graduated with Distinction.</p>
+    <section class="content-section" id="capabilities">
+      <div class="section-shell">
+        <div class="section-heading reveal"><span class="section-index">03</span><div><p class="kicker">The toolkit</p><h2>Systems thinking, made practical.</h2></div></div>
+        <div class="capability-grid">
+          <article class="capability-card capability-feature reveal"><div class="capability-icon">⌁</div><span class="mono-label">01 / backbone</span><h3>Infrastructure &amp; operations</h3><p>Keeping distributed branch environments connected, observable and ready for real work.</p><div class="capability-words"><span>Network design</span><span>System administration</span><span>Monitoring</span><span>Business continuity</span></div></article>
+          <article class="capability-card reveal"><div class="capability-icon">⌑</div><span class="mono-label">02 / guardrails</span><h3>Security &amp; compliance</h3><p>Building controls that protect people, data and institutional trust without slowing the team down.</p><div class="capability-words"><span>FortiGate</span><span>NRB IS Audit</span><span>Access control</span><span>Risk review</span></div></article>
+          <article class="capability-card reveal"><div class="capability-icon">⌘</div><span class="mono-label">03 / signal</span><h3>Data &amp; enablement</h3><p>Turning raw operational data into clear reports, better decisions and more useful workflows.</p><div class="capability-words"><span>SQL</span><span>MySQL</span><span>SharePoint</span><span>UAT</span></div></article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Projects -->
-  <section id="projects" class="section reveal">
-    <div class="section-inner">
-      <p class="section-label"><span class="idx">04</span> Builds</p>
-      <h2 class="section-title">Systems shipped</h2>
-      <div class="project-grid">
-        <article class="project-card reveal">
-          <div class="project-head">
-            <span class="project-tag">C# · MVC · MySQL</span>
-            <span class="project-status">deployed</span>
-          </div>
-          <h3>Web-Based Hospital Management System</h3>
-          <p>End-to-end system for managing hospital records, appointments, and administrative workflow.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-head">
-            <span class="project-tag">C# · MySQL</span>
-            <span class="project-status">deployed</span>
-          </div>
-          <h3>Online Music Management System</h3>
-          <p>A catalog and management platform for organizing and serving music content.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="section reveal">
-    <div class="section-inner">
-      <p class="section-label"><span class="idx">05</span> Connect</p>
-      <div class="contact-grid">
-        <div class="contact-copy">
-          <h2>Let's talk systems.</h2>
-          <p>Open to conversations on IT infrastructure, cybersecurity, and compliance work in financial systems.</p>
-        </div>
-        <div class="terminal">
-          <div class="terminal-bar">
-            <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
-            <span class="terminal-title">contact.sh</span>
-          </div>
-          <div class="terminal-body">
-            <p><span class="prompt">$</span> whoami</p>
-            <p class="out">hari_pandey — IT Officer &amp; Department Head, Mero Microfinance</p>
-            <p><span class="prompt">$</span> cat location.txt</p>
-            <p class="out">Butwal-19, Rupandehi, Nepal</p>
-            <p><span class="prompt">$</span> cat email.txt</p>
-            <p class="out"><a href="mailto:pandeyhari41@gmail.com">pandeyhari41@gmail.com</a></p>
-            <p><span class="prompt">$</span> cat phone.txt</p>
-            <p class="out"><a href="tel:+9779863197740">+977 986 319 7740</a></p>
-            <p><span class="prompt">$</span> open linkedin</p>
-            <p class="out"><a href="https://www.linkedin.com/in/hari-pandey/" target="_blank" rel="noopener">linkedin.com/in/hari-pandey</a></p>
-            <p><span class="prompt">$</span> open profile</p>
-            <p class="out"><a href="https://www.meromicrofinance.com/index.php/governance/management-team" target="_blank" rel="noopener">meromicrofinance.com — management team</a></p>
-            <p class="cursor-line"><span class="prompt">$</span><span class="cursor">▌</span></p>
-          </div>
+    <section class="content-section section-tinted" id="projects">
+      <div class="section-shell">
+        <div class="section-heading projects-heading reveal"><span class="section-index">04</span><div><p class="kicker">Selected builds</p><h2>Things made to be used.</h2></div><div class="filter-group" role="group" aria-label="Filter projects"><button class="filter-button active" data-filter="all">All</button><button class="filter-button" data-filter="systems">Systems</button><button class="filter-button" data-filter="data">Data</button></div></div>
+        <div class="project-grid">
+          <article class="project-card reveal" data-category="systems"><div class="project-card-top"><span class="project-number">01</span><span class="project-state">deployed</span></div><div class="project-art hospital-art"><span>HMS</span><i></i><i></i><i></i></div><p class="project-stack">C# · MVC · MySQL</p><h3>Web-Based Hospital Management System</h3><p>End-to-end system for records, appointments and administrative workflow.</p><a href="#contact" class="text-link">Discuss the build <span>↗</span></a></article>
+          <article class="project-card reveal" data-category="data"><div class="project-card-top"><span class="project-number">02</span><span class="project-state">deployed</span></div><div class="project-art music-art"><span>WAV</span><i></i><i></i><i></i><i></i></div><p class="project-stack">C# · MySQL</p><h3>Online Music Management System</h3><p>A catalog and management platform for organizing and serving music content.</p><a href="#contact" class="text-link">Discuss the build <span>↗</span></a></article>
+          <article class="project-card reveal" data-category="data"><div class="project-card-top"><span class="project-number">03</span><span class="project-state">in progress</span></div><div class="project-art ops-art"><span>OPS</span><i></i><i></i><i></i></div><p class="project-stack">SQL · dashboards · reporting</p><h3>Operational Signal Layer</h3><p>Turning scattered operational information into a clearer view for teams and decision-makers.</p><a href="#contact" class="text-link">Talk through the idea <span>↗</span></a></article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-</main>
+    <section class="content-section" id="education">
+      <div class="section-shell split-section">
+        <div class="section-heading reveal"><span class="section-index">05</span><div><p class="kicker">Foundation</p><h2>Curiosity with a practical edge.</h2></div></div>
+        <div class="education-list reveal"><article><span>2012 — 2016</span><div><h3>B.E. Computer Engineering</h3><p>Janakpur Engineering College, Kathmandu</p><small>Data Mining · Remote Sensing · Agile Software Development · First Division</small></div></article><article><span>2009 — 2011</span><div><h3>Higher Secondary, Physics</h3><p>Tilottama Higher Secondary School, Butwal</p><small>First Division</small></div></article><article><span>2009</span><div><h3>Motherland English School</h3><p>Butwal</p><small>Graduated with Distinction</small></div></article></div>
+      </div>
+    </section>
 
-<footer>
-  <div class="footer-inner">
-    <p>&copy; <span id="year"></span> Hari Pandey. Built with intent, not a template.</p>
-  </div>
-</footer>
+    <section class="content-section section-tinted" id="beyond">
+      <div class="section-shell beyond-layout"><div class="section-heading reveal"><span class="section-index">06</span><div><p class="kicker">Beyond the job</p><h2>Teach, learn, keep perspective.</h2></div></div><div class="beyond-grid"><article class="beyond-card reveal"><span class="beyond-type">Volunteer / 2016 — 2018</span><h3>Teacher, Teach For Nepal</h3><p>Volunteer teacher at Shree Mahakali Secondary School, Melamchi-11, Sindhupalchok.</p></article><article class="beyond-card reveal"><span class="beyond-type">Award / 2012</span><h3>B.E. Scholarship</h3><p>Partial scholarship for the B.E. program through a national-level competitive exam.</p></article></div></div>
+    </section>
 
-<script src="script.js"></script>
+    <section class="content-section contact-section" id="contact">
+      <div class="section-shell contact-layout"><div class="contact-copy reveal"><span class="section-index">07</span><p class="kicker">Open channel</p><h2>Let’s make the important systems feel simpler.</h2><p>Open to conversations on IT infrastructure, cybersecurity, compliance and thoughtful digital systems in financial services.</p><div class="contact-actions"><a class="button button-primary" href="mailto:pandeyhari41@gmail.com">Email Hari <span>↗</span></a><a class="button button-secondary" href="https://www.linkedin.com/in/hari-pandey/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a></div></div><div class="terminal reveal"><div class="terminal-bar"><span class="terminal-dot red"></span><span class="terminal-dot amber"></span><span class="terminal-dot mint"></span><span>contact.sh</span></div><div class="terminal-body"><p><span class="terminal-prompt">$</span> whoami</p><p class="terminal-output">hari_pandey — IT Officer &amp; Department Head</p><p><span class="terminal-prompt">$</span> location</p><p class="terminal-output">Butwal-19, Rupandehi, Nepal</p><p><span class="terminal-prompt">$</span> email</p><p class="terminal-output"><button class="copy-button" data-copy="pandeyhari41@gmail.com" aria-label="Copy email address">pandeyhari41@gmail.com <span>copy</span></button></p><p><span class="terminal-prompt">$</span> phone</p><p class="terminal-output"><a href="tel:+9779863197740">+977 986 319 7740</a></p><p class="terminal-cursor"><span class="terminal-prompt">$</span> <i></i></p></div></div></div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="section-shell footer-inner"><span>© <span id="year"></span> Hari Pandey</span><span>Built with intent, not a template.</span><a href="#top">Back to top ↑</a></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>

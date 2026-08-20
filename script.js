@@ -1,196 +1,179 @@
-// ===========================================================
-// Footer year
-// ===========================================================
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// ===========================================================
-// Live status clock (Nepal time, purely decorative "systems" feel)
-// ===========================================================
-const clockEl = document.getElementById('statusClock');
-function tickClock(){
-  const now = new Date();
-  const parts = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
-  }).formatToParts(now);
-  const get = t => parts.find(p => p.type === t).value;
-  clockEl.textContent = `${get('hour')}:${get('minute')}:${get('second')} NPT`;
-}
-tickClock();
-setInterval(tickClock, 1000);
-
-// ===========================================================
-// Mobile nav toggle
-// ===========================================================
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-navToggle.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-});
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-  });
-});
-
-// ===========================================================
-// Scroll reveal
-// ===========================================================
+const root = document.documentElement;
+const body = document.body;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Footer and live Nepal time.
+const yearEl = document.getElementById('year');
+const clockEl = document.getElementById('statusClock');
+const syncEl = document.getElementById('syncTime');
+yearEl.textContent = new Date().getFullYear();
+function updateClock(){
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kathmandu',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(now);
+  const get = type => parts.find(part => part.type === type)?.value || '--';
+  const current = `${get('hour')}:${get('minute')}:${get('second')} NPT`;
+  clockEl.textContent = current;
+  syncEl.textContent = `today · ${current}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// Theme preference with a small, persistent control.
+const themeToggle = document.getElementById('themeToggle');
+const storedTheme = localStorage.getItem('hari-theme');
+if(storedTheme === 'light') body.classList.add('light');
+function updateThemeButton(){
+  const light = body.classList.contains('light');
+  themeToggle.setAttribute('aria-pressed', String(light));
+  themeToggle.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+  themeToggle.querySelector('.theme-icon').textContent = light ? '☼' : '◐';
+}
+updateThemeButton();
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('light');
+  localStorage.setItem('hari-theme', body.classList.contains('light') ? 'light' : 'dark');
+  updateThemeButton();
+});
+
+// Mobile navigation.
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+function closeMenu(){
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+  navToggle.setAttribute('aria-label', 'Open navigation');
+}
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+});
+navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+// Scroll chrome: navbar state, progress bar, and active section.
+const navbar = document.getElementById('navbar');
+const progress = document.getElementById('scrollProgress');
+const sectionLinks = [...document.querySelectorAll('.nav-link')];
+const observedSections = sectionLinks.map(link => document.getElementById(link.dataset.section)).filter(Boolean);
+function updateScrollChrome(){
+  const scrollTop = window.scrollY;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = `${maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0}%`;
+  navbar.classList.toggle('scrolled', scrollTop > 20);
+}
+window.addEventListener('scroll', updateScrollChrome, {passive:true});
+updateScrollChrome();
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      sectionLinks.forEach(link => link.classList.toggle('active', link.dataset.section === entry.target.id));
+    }
+  });
+},{rootMargin:'-28% 0px -58% 0px',threshold:0});
+observedSections.forEach(section => sectionObserver.observe(section));
+
+// Reveal sections as they enter the viewport.
 const revealItems = document.querySelectorAll('.reveal');
-if (reduceMotion) {
-  revealItems.forEach(el => el.classList.add('in-view'));
-} else {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('in-view'), i * 60);
-        io.unobserve(entry.target);
+if(reduceMotion){ revealItems.forEach(item => item.classList.add('in-view')); }
+else{
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach((entry,index) => {
+      if(entry.isIntersecting){
+        entry.target.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-  revealItems.forEach(el => io.observe(el));
+  },{threshold:.12,rootMargin:'0px 0px -35px 0px'});
+  revealItems.forEach(item => revealObserver.observe(item));
 }
 
-// ===========================================================
-// Count-up stats
-// ===========================================================
-const stats = document.querySelectorAll('.stat-num');
+// Metric count-up.
+const countItems = document.querySelectorAll('.count');
 function animateCount(el){
-  const target = parseInt(el.dataset.count, 10);
-  if (reduceMotion) { el.textContent = target; return; }
-  const duration = 1200;
-  const start = performance.now();
+  const target = Number(el.dataset.count);
+  if(reduceMotion){el.textContent = target;return;}
+  const started = performance.now();
+  const duration = 950;
   function step(now){
-    const p = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(eased * target);
-    if (p < 1) requestAnimationFrame(step);
+    const progressValue = Math.min((now - started) / duration, 1);
+    const eased = 1 - Math.pow(1 - progressValue, 3);
+    el.textContent = Math.round(target * eased);
+    if(progressValue < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
-const statIO = new IntersectionObserver((entries) => {
+const countObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCount(entry.target);
-      statIO.unobserve(entry.target);
-    }
+    if(entry.isIntersecting){animateCount(entry.target);countObserver.unobserve(entry.target);}
   });
-}, { threshold: 0.6 });
-stats.forEach(s => statIO.observe(s));
+},{threshold:.8});
+countItems.forEach(item => countObserver.observe(item));
 
-// ===========================================================
-// Hero network canvas — branch nodes reporting to a central node.
-// A quiet nod to what the job actually is: keeping a distributed
-// branch network alive and talking to Head Office.
-// ===========================================================
+// Project filters.
+const filterButtons = document.querySelectorAll('.filter-button');
+const projectCards = document.querySelectorAll('.project-card');
+filterButtons.forEach(button => button.addEventListener('click', () => {
+  filterButtons.forEach(item => item.classList.toggle('active', item === button));
+  const filter = button.dataset.filter;
+  projectCards.forEach(card => {
+    const visible = filter === 'all' || card.dataset.category === filter;
+    card.classList.toggle('is-hidden', !visible);
+    if(visible){card.classList.remove('in-view');requestAnimationFrame(() => card.classList.add('in-view'));}
+  });
+}));
+
+// Copy contact detail with a visible confirmation.
+const toast = document.getElementById('toast');
+let toastTimer;
+function showToast(message){
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+document.querySelectorAll('.copy-button').forEach(button => button.addEventListener('click', async () => {
+  const value = button.dataset.copy;
+  try{
+    await navigator.clipboard.writeText(value);
+    showToast('Email copied to clipboard');
+    button.querySelector('span').textContent = 'copied';
+    setTimeout(() => {button.querySelector('span').textContent = 'copy';}, 1800);
+  }catch(error){
+    showToast(value);
+  }
+}));
+
+// Lightweight network field for the hero. It is decorative and respects reduced motion.
 (function networkCanvas(){
   const canvas = document.getElementById('netCanvas');
   const ctx = canvas.getContext('2d');
-  let w, h, dpr;
-  let nodes = [];
-  let hub;
-  let pulses = [];
-  let lastPulse = 0;
-
+  let width = 0; let height = 0; let dpr = 1; let nodes = []; let pulses = []; let lastPulse = 0;
   function resize(){
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = canvas.clientWidth;
-    h = canvas.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    buildNodes();
+    width = canvas.clientWidth; height = canvas.clientHeight;
+    canvas.width = width * dpr; canvas.height = height * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const count = width < 650 ? 9 : 17;
+    nodes = Array.from({length:count},(_,index) => {
+      const angle = (index / count) * Math.PI * 2 + (index % 3) * .09;
+      const radius = Math.min(width,height) * (.32 + (index % 4) * .045);
+      return {x:width*.51 + Math.cos(angle)*radius,y:height*.48 + Math.sin(angle)*radius,r:1.5 + (index%3)*.5,phase:index*1.31};
+    });
   }
-
-  function buildNodes(){
-    const count = w < 640 ? 8 : 14;
-    hub = { x: w * 0.5, y: h * 0.46, r: 5 };
-    nodes = [];
-    for (let i = 0; i < count; i++){
-      const angle = (i / count) * Math.PI * 2 + Math.random() * 0.3;
-      const radius = Math.min(w, h) * (0.32 + Math.random() * 0.22);
-      nodes.push({
-        x: hub.x + Math.cos(angle) * radius,
-        y: hub.y + Math.sin(angle) * radius,
-        r: 2 + Math.random() * 1.6,
-        phase: Math.random() * Math.PI * 2,
-        speed: 0.4 + Math.random() * 0.4
-      });
-    }
-  }
-
   function spawnPulse(){
-    if (!nodes.length) return;
-    const target = nodes[Math.floor(Math.random() * nodes.length)];
-    pulses.push({ x: hub.x, y: hub.y, tx: target.x, ty: target.y, t: 0 });
+    const target = nodes[Math.floor(Math.random()*nodes.length)];
+    if(target) pulses.push({target,t:0});
   }
-
   function draw(time){
-    ctx.clearRect(0, 0, w, h);
-
-    // lines hub -> node
-    ctx.lineWidth = 1;
-    nodes.forEach(n => {
-      ctx.strokeStyle = 'rgba(63,224,197,0.10)';
-      ctx.beginPath();
-      ctx.moveTo(hub.x, hub.y);
-      ctx.lineTo(n.x, n.y);
-      ctx.stroke();
-    });
-
-    // hub
-    const hubGlow = 6 + Math.sin(time / 500) * 2;
-    const grad = ctx.createRadialGradient(hub.x, hub.y, 0, hub.x, hub.y, hubGlow * 3);
-    grad.addColorStop(0, 'rgba(63,224,197,0.35)');
-    grad.addColorStop(1, 'rgba(63,224,197,0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(hub.x, hub.y, hubGlow * 3, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#3FE0C5';
-    ctx.beginPath();
-    ctx.arc(hub.x, hub.y, hub.r, 0, Math.PI * 2);
-    ctx.fill();
-
-    // nodes (gentle bob)
-    nodes.forEach(n => {
-      const bob = Math.sin(time / 1000 * n.speed + n.phase) * 2;
-      ctx.fillStyle = 'rgba(234,240,245,0.55)';
-      ctx.beginPath();
-      ctx.arc(n.x, n.y + bob, n.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    // pulses traveling from hub to a node
-    pulses.forEach(p => {
-      p.t += 0.014;
-      const x = p.x + (p.tx - p.x) * p.t;
-      const y = p.y + (p.ty - p.y) * p.t;
-      const alpha = Math.sin(Math.min(p.t, 1) * Math.PI);
-      ctx.fillStyle = `rgba(232,179,85,${alpha})`;
-      ctx.beginPath();
-      ctx.arc(x, y, 2.4, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    pulses = pulses.filter(p => p.t < 1);
-
-    if (time - lastPulse > 700){
-      spawnPulse();
-      lastPulse = time;
-    }
-
-    if (!reduceMotion) requestAnimationFrame(draw);
+    ctx.clearRect(0,0,width,height);
+    const hub = {x:width*.51,y:height*.48};
+    nodes.forEach(node => {ctx.strokeStyle='rgba(109,231,207,.12)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(hub.x,hub.y);ctx.lineTo(node.x,node.y);ctx.stroke();});
+    nodes.forEach(node => {const bob=reduceMotion?0:Math.sin(time/1150+node.phase)*2;ctx.fillStyle='rgba(243,247,247,.48)';ctx.beginPath();ctx.arc(node.x,node.y+bob,node.r,0,Math.PI*2);ctx.fill();});
+    const glow=10 + (reduceMotion?0:Math.sin(time/700)*2);const gradient=ctx.createRadialGradient(hub.x,hub.y,0,hub.x,hub.y,glow*4);gradient.addColorStop(0,'rgba(109,231,207,.32)');gradient.addColorStop(1,'rgba(109,231,207,0)');ctx.fillStyle=gradient;ctx.beginPath();ctx.arc(hub.x,hub.y,glow*4,0,Math.PI*2);ctx.fill();ctx.fillStyle='#6de7cf';ctx.beginPath();ctx.arc(hub.x,hub.y,3.5,0,Math.PI*2);ctx.fill();
+    pulses.forEach(pulse => {pulse.t += .013;const x=hub.x+(pulse.target.x-hub.x)*pulse.t;const y=hub.y+(pulse.target.y-hub.y)*pulse.t;ctx.fillStyle=`rgba(243,188,114,${Math.sin(Math.min(pulse.t,1)*Math.PI)})`;ctx.beginPath();ctx.arc(x,y,2.2,0,Math.PI*2);ctx.fill();});
+    pulses=pulses.filter(pulse => pulse.t<1);
+    if(!reduceMotion && time-lastPulse>800){spawnPulse();lastPulse=time;requestAnimationFrame(draw);}
   }
-
-  resize();
-  window.addEventListener('resize', resize);
-
-  if (reduceMotion){
-    draw(0); // static single frame
-  } else {
-    requestAnimationFrame(draw);
-  }
+  resize();window.addEventListener('resize',resize);draw(0);if(!reduceMotion)requestAnimationFrame(draw);
 })();
